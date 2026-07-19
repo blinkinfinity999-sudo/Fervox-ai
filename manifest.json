@@ -1,16 +1,16 @@
 {
-  "name": "Fervox ai",
-  "short_name": "Fervox",
-  "start_url": "index.html",
-  "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#000000",
+  "short_name": "Fervox AI",
+  "name": "Fervox AI Mobile Assistant",
   "icons": [
     {
-      "src": "icon.png?v=999",
+      "src": "icon.png",
+      "type": "image/png",
       "sizes": "512x512",
-      "type": "image/png"
+      "purpose": "any maskable"
     }
-  ]
-  "package_id": "com.fervoxai.engine.v2"
+  ],
+  "start_url": "/",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "theme_color": "#007fff"
 }
