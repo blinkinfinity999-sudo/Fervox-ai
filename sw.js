@@ -1,24 +1,14 @@
-const CACHE_NAME = 'fervox-v1';
-const ASSETS = [
-  '/',
-  '/index.html',
-  '/icon.png'
-];
-
-// Install Service Worker
+// Inside sw.js
 self.addEventListener('install', (e) => {
-  e.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(ASSETS);
-    })
-  );
+  self.skipWaiting();
 });
 
-// Fetch Assets
+self.addEventListener('activate', (e) => {
+  return self.clients.claim();
+});
+
+// CRITICAL: Chrome requires this block to allow direct native installation
 self.addEventListener('fetch', (e) => {
-  e.respondWith(
-    caches.match(e.request).then((response) => {
-      return response || fetch(e.request);
-    })
-  );
+  // Keeps the app functional online/offline
+  e.respondWith(fetch(e.request).catch(() => caches.match(e.request)));
 });
