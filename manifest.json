@@ -1,6 +1,6 @@
 {
-  "name": "Frostler ai",
-  "short_name": "Frostler",
+  "name": "Fervox ai",
+  "short_name": "Fervox",
   "start_url": "index.html",
   "display": "standalone",
   "background_color": "#ffffff",
@@ -12,5 +12,5 @@
       "type": "image/png"
     }
   ]
-  "package_id": "com.frostlerai.engine.v2"
+  "package_id": "com.fervoxai.engine.v2"
 }
