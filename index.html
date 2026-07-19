@@ -29,5 +29,18 @@
     </script>
 </head>
 <body style="background-color: #000000;">
+    <!-- ... all your other HTML elements ... -->
+
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js')
+            .then(reg => console.log('Fervox Service Worker Registered!'))
+            .catch(err => console.log('Service Worker registration failed: ', err));
+        });
+      }
+    </script>
+  </body>
+</html>
 </body>
 </html>
