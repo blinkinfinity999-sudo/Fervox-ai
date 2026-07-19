@@ -1,7 +1,8 @@
 {
   "name": "Fervox AI",
   "short_name": "Fervox",
-  "start_url": "/frostler-ai/",
+  "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#000000",
   "theme_color": "#000000",
