@@ -2,49 +2,50 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Fervox AI</title>
-    
-    <!-- Clean PWA Setup Links -->
-    <link rel="manifest" href="manifest.json">
-    <link rel="icon" type="image/png" href="icon.png">
-    <link rel="apple-touch-icon" href="icon.png">
 
-    <!-- Tailwind CSS Engine (Deferred so it doesn't block the app check) -->
-    <script src="https://cdn.tailwindcss.com" defer></script>
+    <!-- PWA Settings -->
+    <link rel="manifest" href="./manifest.json">
+    <link rel="icon" type="image/png" href="./icon.png">
+    <link rel="apple-touch-icon" href="./icon.png">
 
-    <!-- Immediate Service Worker Activation Script -->
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('sw.js')
-                    .then(reg => console.log('SW Registered setup successfully!'))
-                    .catch(err => console.log('SW setup error:', err));
+                navigator.serviceWorker.register('./sw.js', { scope: './' })
+                    .then(reg => console.log('SW Registered:', reg.scope))
+                    .catch(err => console.log('SW Failed:', err));
             });
         }
     </script>
+
+    <style>
+        /* Resets the screen completely */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #0b0c10;
+        }
+        /* Forces the AI Studio link to take up the full window */
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+        }
+    </style>
 </head>
-<body class="bg-[#0b0c10] text-white min-h-screen flex items-center justify-center p-4">
+<body>
 
-    <div class="max-w-md w-full bg-[#1f2833] rounded-2xl p-8 border border-[#66fcf1] text-center shadow-2xl">
-        <!-- App Icon -->
-        <img src="icon.png" alt="Fervox AI Logo" class="w-24 h-24 rounded-2xl mx-auto mb-6 object-cover border-2 border-[#66fcf1]">
-        
-        <!-- Headers -->
-        <h1 class="text-3xl font-bold tracking-tight mb-2">Fervox AI</h1>
-        <p class="text-[#66fcf1] text-lg mb-8">Your Mobile Assistant</p>
-
-        <!-- Direct Action Launcher Button -->
-        <a href="https://fervox-ai.ai.studio" 
-           target="_blank" 
-           class="inline-block w-full bg-[#66fcf1] text-[#0b0c10] py-3.5 px-6 rounded-xl font-bold text-lg hover:bg-[#45a29e] transition duration-200 shadow-md">
-            Launch Assistant
-        </a>
-
-        <p class="text-xs text-gray-500 mt-6">
-            Tap the browser's 3-dot menu and select <strong>"Install App"</strong> to place Fervox on your home screen.
-        </p>
-    </div>
+    <!-- Put your published AI Studio web app link in the src below -->
+    <iframe src="https://fervox ai.ai.studio"></iframe>
 
 </body>
 </html>
