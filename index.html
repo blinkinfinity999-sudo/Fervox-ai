@@ -2,54 +2,33 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fervox AI</title>
-
-    <!-- PWA Web App Manifest Link -->
     <link rel="manifest" href="manifest.json">
-    
-    <!-- Link to your local App Icon -->
     <link rel="icon" type="image/png" href="icon.png">
     <link rel="apple-touch-icon" href="icon.png">
-
-    <!-- Ultra-Clean Service Worker Registration Script -->
     <script>
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('sw.js');
         }
     </script>
-
     <style>
-        /* Full screen Reset */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        html, body {
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            background-color: #0b0c10;
-        }
-
-        /* Seamless Portal View for Google AI Studio */
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-            display: block;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
+        body { background-color: #0b0c10; color: #fff; display: flex; justify-content: center; align-items: center; min-height: 100vh; text-align: center; }
+        .card { padding: 30px; background: #1f2833; border-radius: 16px; max-width: 400px; width: 90%; border: 1px solid #66fcf1; }
+        .logo { width: 100px; height: 100px; border-radius: 20px; margin-bottom: 20px; }
+        h1 { margin-bottom: 10px; font-size: 2rem; }
+        p { color: #c5c6c7; margin-bottom: 30px; font-size: 1rem; }
+        .btn { display: inline-block; background: #66fcf1; color: #0b0c10; padding: 12px 30px; font-weight: bold; border-radius: 8px; text-decoration: none; font-size: 1.1rem; transition: 0.2s; }
+        .btn:hover { background: #45a29e; }
     </style>
 </head>
 <body>
-
-    <!-- Embeds your AI Studio App seamlessly inside your PWA wrapper -->
-    <iframe 
-        src="https://fervox-ai.ai.studio" 
-        allow="microphone; clipboard-read; clipboard-write;">
-    </iframe>
-
+    <div class="card">
+        <img src="icon.png" alt="Fervox Logo" class="logo">
+        <h1>Fervox AI</h1>
+        <p>Your custom AI Assistant ecosystem is ready.</p>
+        <a href="https://fervox-ai.ai.studio/" class="btn" target="_blank">Launch Assistant</a>
+    </div>
 </body>
 </html>
