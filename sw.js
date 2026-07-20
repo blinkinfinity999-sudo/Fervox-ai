@@ -1,14 +1,7 @@
-// Inside sw.js
-self.addEventListener('install', (e) => {
-  self.skipWaiting();
-});
-
-self.addEventListener('activate', (e) => {
-  return self.clients.claim();
-});
-
-// CRITICAL: Chrome requires this block to allow direct native installation
-self.addEventListener('fetch', (e) => {
-  // Keeps the app functional online/offline
-  e.respondWith(fetch(e.request).catch(() => caches.match(e.request)));
-});
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js', { scope: './' })
+      .then(reg => console.log('Fervox SW Registered!', reg.scope))
+      .catch(err => console.log('SW Registry Failed:', err));
+  });
+}
