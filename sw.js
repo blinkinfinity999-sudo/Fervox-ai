@@ -1,7 +1,11 @@
-<link rel="manifest" href="manifest.json">
+self.addEventListener('install', (e) => {
+  self.skipWaiting();
+});
 
-<script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('sw.js');
-  }
-</script>
+self.addEventListener('activate', (e) => {
+  return self.clients.claim();
+});
+
+self.addEventListener('fetch', (e) => {
+  e.respondWith(fetch(e.request).catch(() => caches.match(e.request)));
+});
