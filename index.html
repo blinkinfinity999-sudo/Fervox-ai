@@ -1,46 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="icon" type="image/png" href="icon.png" sizes="512x512">
-  <link rel="apple-touch-icon" href="icon.png" sizes="512x512">
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "Fervox AI",
-  "alternateName": "Fervox Mobile Web Assistant",
-  "url": "https://blinkinfinity999-sudo.github.io/Fervox-ai/"
-}
-</script>
-    <link rel="manifest" href="/manifest.json">
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Fervox AI</title>
+
+    <!-- PWA Web App Manifest Link -->
+    <link rel="manifest" href="manifest.json">
     
+    <!-- Link to your local App Icon -->
     <link rel="icon" type="image/png" href="icon.png">
     <link rel="apple-touch-icon" href="icon.png">
-    <link rel="manifest" href="manifest.json">
 
-    <meta http-equiv="refresh" content="0; url=https://fervox-ai.ai.studio/">
-    
+    <!-- Ultra-Clean Service Worker Registration Script -->
     <script>
-        // Back up script to force the jump immediately if meta refresh stalls
-        window.location.href = "https://fervox-ai.ai.studio";
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js');
+        }
     </script>
+
+    <style>
+        /* Full screen Reset */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #0b0c10;
+        }
+
+        /* Seamless Portal View for Google AI Studio */
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+        }
+    </style>
 </head>
-<body style="background-color: #000000;">
-    <!-- ... all your other HTML elements ... -->
+<body>
 
-    <script>
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-          navigator.serviceWorker.register('/sw.js')
-            .then(reg => console.log('Fervox Service Worker Registered!'))
-            .catch(err => console.log('Service Worker registration failed: ', err));
-        });
-      }
-    </script>
-  </body>
-</html>
+    <!-- Embeds your AI Studio App seamlessly inside your PWA wrapper -->
+    <iframe 
+        src="https://fervox-ai.ai.studio" 
+        allow="microphone; clipboard-read; clipboard-write;">
+    </iframe>
+
 </body>
 </html>
