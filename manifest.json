@@ -1,20 +1,20 @@
 {
   "name": "Fervox AI",
   "short_name": "Fervox",
-  "start_url": "/frostler-ai/index.html",
-  "scope": "/frostler-ai/",
+  "start_url": "/Fervox-ai/index.html",
+  "scope": "/Fervox-ai/",
   "display": "standalone",
   "background_color": "#000000",
   "theme_color": "#000000",
   "icons": [
     {
-      "src": "/frostler-ai/icon.png",
+      "src": "/Fervox-ai/icon.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/frostler-ai/icon.png",
+      "src": "/Fervox-ai/icon.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
