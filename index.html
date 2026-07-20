@@ -4,31 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fervox AI</title>
+    
+    <!-- Clean PWA Setup Links -->
     <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/png" href="icon.png">
     <link rel="apple-touch-icon" href="icon.png">
+
+    <!-- Tailwind CSS Engine (Deferred so it doesn't block the app check) -->
+    <script src="https://cdn.tailwindcss.com" defer></script>
+
+    <!-- Immediate Service Worker Activation Script -->
     <script>
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('sw.js');
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(reg => console.log('SW Registered setup successfully!'))
+                    .catch(err => console.log('SW setup error:', err));
+            });
         }
     </script>
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
-        body { background-color: #0b0c10; color: #fff; display: flex; justify-content: center; align-items: center; min-height: 100vh; text-align: center; }
-        .card { padding: 30px; background: #1f2833; border-radius: 16px; max-width: 400px; width: 90%; border: 1px solid #66fcf1; }
-        .logo { width: 100px; height: 100px; border-radius: 20px; margin-bottom: 20px; }
-        h1 { margin-bottom: 10px; font-size: 2rem; }
-        p { color: #c5c6c7; margin-bottom: 30px; font-size: 1rem; }
-        .btn { display: inline-block; background: #66fcf1; color: #0b0c10; padding: 12px 30px; font-weight: bold; border-radius: 8px; text-decoration: none; font-size: 1.1rem; transition: 0.2s; }
-        .btn:hover { background: #45a29e; }
-    </style>
 </head>
-<body>
-    <div class="card">
-        <img src="icon.png" alt="Fervox Logo" class="logo">
-        <h1>Fervox AI</h1>
-        <p>Your custom AI Assistant ecosystem is ready.</p>
-        <a href="https://fervox-ai.ai.studio/" class="btn" target="_blank">Launch Assistant</a>
+<body class="bg-[#0b0c10] text-white min-h-screen flex items-center justify-center p-4">
+
+    <div class="max-w-md w-full bg-[#1f2833] rounded-2xl p-8 border border-[#66fcf1] text-center shadow-2xl">
+        <!-- App Icon -->
+        <img src="icon.png" alt="Fervox AI Logo" class="w-24 h-24 rounded-2xl mx-auto mb-6 object-cover border-2 border-[#66fcf1]">
+        
+        <!-- Headers -->
+        <h1 class="text-3xl font-bold tracking-tight mb-2">Fervox AI</h1>
+        <p class="text-[#66fcf1] text-lg mb-8">Your Mobile Assistant</p>
+
+        <!-- Direct Action Launcher Button -->
+        <a href="https://fervox-ai.ai.studio" 
+           target="_blank" 
+           class="inline-block w-full bg-[#66fcf1] text-[#0b0c10] py-3.5 px-6 rounded-xl font-bold text-lg hover:bg-[#45a29e] transition duration-200 shadow-md">
+            Launch Assistant
+        </a>
+
+        <p class="text-xs text-gray-500 mt-6">
+            Tap the browser's 3-dot menu and select <strong>"Install App"</strong> to place Fervox on your home screen.
+        </p>
     </div>
+
 </body>
 </html>
