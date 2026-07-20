@@ -5,15 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Fervox AI</title>
 
-    <!-- PWA Settings -->
-    <link rel="manifest" href="./manifest.json">
-    <link rel="icon" type="image/png" href="./icon.png">
-    <link rel="apple-touch-icon" href="./icon.png">
+    <!-- Absolute PWA Paths for GitHub Pages -->
+    <link rel="manifest" href="/frostler-ai/manifest.json">
+    <link rel="icon" type="image/png" href="/frostler-ai/icon.png">
+    <link rel="apple-touch-icon" href="/frostler-ai/icon.png">
 
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js', { scope: './' })
+                navigator.serviceWorker.register('/frostler-ai/sw.js', { scope: '/frostler-ai/' })
                     .then(reg => console.log('SW Registered:', reg.scope))
                     .catch(err => console.log('SW Failed:', err));
             });
@@ -21,7 +21,6 @@
     </script>
 
     <style>
-        /* Resets the screen completely */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -31,9 +30,8 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
-            background-color: #0b0c10;
+            background-color: #000000;
         }
-        /* Forces the AI Studio link to take up the full window */
         iframe {
             width: 100%;
             height: 100%;
@@ -44,8 +42,8 @@
 </head>
 <body>
 
-    <!-- Put your published AI Studio web app link in the src below -->
-    <iframe src="https://fervox ai.ai.studio"></iframe>
+    <!-- PASTE YOUR CLEAN, COPIED LINK IN THE SRC BELOW (NO SPACES!) -->
+    <iframe src="PASTE_YOUR_CLEAN_AI_STUDIO_URL_HERE"></iframe>
 
 </body>
 </html>
