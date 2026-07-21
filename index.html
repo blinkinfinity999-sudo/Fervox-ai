@@ -44,6 +44,42 @@
 
     <!-- Embedded Live Application -->
     <iframe src="https://fervox-ai.ai.studio"></iframe>
+<!-- Custom Install Banner Container -->
+<div id="installBanner" style="display: none; position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 9999; background: #1e1e2e; color: #fff; padding: 12px 20px; border-radius: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); font-family: sans-serif; align-items: center; gap: 12px;">
+  <span>📲 Install <b>Fervox AI</b> on your device!</span>
+  <button id="pwaInstallBtn" style="background: #4f46e5; color: white; border: none; padding: 8px 16px; border-radius: 20px; font-weight: bold; cursor: pointer;">Install</button>
+</div>
 
+<script>
+  let deferredPrompt;
+  const banner = document.getElementById('installBanner');
+  const installBtn = document.getElementById('pwaInstallBtn');
+
+  // Intercept Chrome/Edge native install event
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    // Show custom install prompt banner
+    banner.style.display = 'flex';
+  });
+
+  installBtn.addEventListener('click', async () => {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      if (outcome === 'accepted') {
+        console.log('User installed Fervox AI');
+      }
+      deferredPrompt = null;
+      banner.style.display = 'none';
+    }
+  });
+
+  // Hide banner if app is already installed
+  window.addEventListener('appinstalled', () => {
+    banner.style.display = 'none';
+    console.log('Fervox AI installed successfully!');
+  });
+</script>
 </body>
 </html>
