@@ -14,24 +14,24 @@ function sendDownloadNotification() {
       'Accept': 'application/json'
     },
     body: JSON.stringify({
-      subject: '🚀 New Fervox AI Download!',
-      message: 'A user has installed the Fervox AI PWA.',
+      email: 'rage99582@gmail.com', // Required by Formspree to route properly
+      message: '🚀 New Fervox AI Download!',
       device: navigator.userAgent,
       time: new Date().toLocaleString()
     })
   })
-  .then(response => {
+  .then(async (response) => {
+    const data = await response.json();
     if (response.ok) {
-      console.log('Notification email sent successfully!');
+      console.log('✅ Formspree success:', data);
     } else {
-      console.error('Formspree returned an error:', response.status);
+      console.error('❌ Formspree error detail:', data);
     }
   })
   .catch(error => {
-    console.error('Error sending email:', error);
+    console.error('❌ Fetch failed completely:', error);
   });
 }
-
 // ==========================================
 // 2. Hide button if already installed
 // ==========================================
