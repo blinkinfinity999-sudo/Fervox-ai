@@ -81,5 +81,36 @@
     console.log('Fervox AI installed successfully!');
   });
 </script>
+    <!-- Floating Purple Install Button -->
+    <button id="pwa-download-circle" title="Install App" style="
+      display: none; /* hidden by default, shown via app.js */
+      position: fixed;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 50px;
+      height: 50px;
+      background-color: #8A2BE2; /* Purple */
+      color: white;
+      border: none;
+      border-radius: 50% 0 0 50%;
+      cursor: pointer;
+      box-shadow: -2px 4px 10px rgba(0, 0, 0, 0.3);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+    ">
+      <!-- Download Icon -->
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+        <polyline points="7 10 12 15 17 10"></polyline>
+        <line x1="12" y1="15" x2="12" y2="3"></line>
+      </svg>
+    </button>
+
+    <!-- Connect your new app.js file -->
+    <script src="app.js"></script>
+</body>
+</html>
 </body>
 </html>
