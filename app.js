@@ -69,6 +69,13 @@ if (downloadBtn) {
     deferredPrompt = null;
   });
 }
+// ==========================================
+// Catch installs from Chrome 3-dots / URL Bar
+// ==========================================
+window.addEventListener('appinstalled', () => {
+  console.log('🎉 PWA was installed successfully!');
+  sendDownloadNotification();
+});
 // 5. Physics Ball Engine
 const canvas = document.getElementById('physicsCanvas');
 if (canvas) {
