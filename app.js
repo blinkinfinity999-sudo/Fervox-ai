@@ -1,7 +1,9 @@
 let deferredPrompt;
 const downloadBtn = document.getElementById('pwa-download-circle');
 
-// 1. Send email notification function
+// ==========================================
+// 1. Send Email Notification (Formspree AJAX)
+// ==========================================
 function sendDownloadNotification() {
   const formspreeEndpoint = 'https://formspree.io/f/mdaqjvqb';
 
@@ -22,7 +24,7 @@ function sendDownloadNotification() {
     if (response.ok) {
       console.log('Notification email sent successfully!');
     } else {
-      console.error('Failed to send notification email.');
+      console.error('Formspree returned an error:', response.status);
     }
   })
   .catch(error => {
@@ -30,19 +32,25 @@ function sendDownloadNotification() {
   });
 }
 
+// ==========================================
 // 2. Hide button if already installed
+// ==========================================
 if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true) {
   if (downloadBtn) downloadBtn.style.display = 'none';
 }
 
-// 3. Save the prompt when the app becomes installable
+// ==========================================
+// 3. Save prompt when app is installable
+// ==========================================
 window.addEventListener('beforeinstallprompt', (e) => {
   e.preventDefault();
   deferredPrompt = e;
   if (downloadBtn) downloadBtn.style.display = 'flex';
 });
 
-// 4. PUT YOUR CODE HERE (Handle click & send email)
+// ==========================================
+// 4. Handle click & send email
+// ==========================================
 if (downloadBtn) {
   downloadBtn.addEventListener('click', async () => {
     if (!deferredPrompt) return;
@@ -54,7 +62,7 @@ if (downloadBtn) {
     const { outcome } = await deferredPrompt.userChoice;
 
     if (outcome === 'accepted') {
-      // Call the email sending code
+      // Call Section 1 here!
       sendDownloadNotification();
     }
 
