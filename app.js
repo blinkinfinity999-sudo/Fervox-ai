@@ -3,7 +3,7 @@ const downloadBtn = document.getElementById('pwa-download-circle');
 
 // 1. Send email notification function
 function sendDownloadNotification() {
-  const formspreeEndpoint = 'https://formspree.io/f/YOUR_FORMSPREE_ID';
+  const formspreeEndpoint = 'https://formspree.io/f/mdaqjvqb';
 
   fetch(formspreeEndpoint, {
     method: 'POST',
