@@ -69,3 +69,47 @@ if (downloadBtn) {
     deferredPrompt = null;
   });
 }
+// 5. Physics Ball Engine
+const canvas = document.getElementById('physicsCanvas');
+if (canvas) {
+  const ctx = canvas.getContext('2d');
+  let ball = { x: 250, y: 30, vx: 3, vy: 0, radius: 12, bounce: 0.75, gravity: 0.35 };
+
+  function updatePhysics() {
+    ball.vy += ball.gravity;
+    ball.x += ball.vx;
+    ball.y += ball.vy;
+
+    // Floor collision
+    if (ball.y + ball.radius > canvas.height) {
+      ball.y = canvas.height - ball.radius;
+      ball.vy *= -ball.bounce;
+    }
+    // Wall collisions
+    if (ball.x + ball.radius > canvas.width || ball.x - ball.radius < 0) {
+      ball.vx *= -1;
+    }
+
+    // Draw frame
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.beginPath();
+    ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
+    ctx.fillStyle = '#A855F7';
+    ctx.fill();
+    ctx.closePath();
+
+    requestAnimationFrame(updatePhysics);
+  }
+
+  const dropBtn = document.getElementById('resetPhysics');
+  if (dropBtn) {
+    dropBtn.addEventListener('click', () => {
+      ball.x = 250;
+      ball.y = 30;
+      ball.vy = 0;
+      ball.vx = (Math.random() - 0.5) * 6;
+    });
+  }
+
+  updatePhysics();
+}
