@@ -14,10 +14,10 @@ function sendDownloadNotification() {
       'Accept': 'application/json'
     },
     body: JSON.stringify({
-      email: 'rage99582@gmail.com', // Required by Formspree to route properly
       message: '🚀 New Fervox AI Download!',
       device: navigator.userAgent,
-      time: new Date().toLocaleString()
+      time: new Date().toLocaleString(),
+      ref: 'DL-' + Date.now() + '-' + Math.random().toString(36).slice(2, 8) // This makes every click unique!
     })
   })
   .then(async (response) => {
@@ -25,12 +25,10 @@ function sendDownloadNotification() {
     if (response.ok) {
       console.log('✅ Formspree success:', data);
     } else {
-      console.error('❌ Formspree error detail:', data);
+      console.error('❌ Formspree error detail:', data); 
     }
   })
-  .catch(error => {
-    console.error('❌ Fetch failed completely:', error);
-  });
+  .catch(error => console.error(' Fetch failed:', error));
 }
 // ==========================================
 // 2. Hide button if already installed
