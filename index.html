@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Fervox AI</title>
 
-    <!-- Corrected Absolute Paths for Fervox-ai Repository -->
+    <!-- PWA Resource Configuration -->
     <link rel="manifest" href="/Fervox-ai/manifest.json">
     <link rel="icon" type="image/png" href="/Fervox-ai/icon.png">
     <link rel="apple-touch-icon" href="/Fervox-ai/icon.png">
 
+    <!-- Service Worker Bootstrapper -->
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
@@ -31,6 +32,12 @@
             height: 100%;
             overflow: hidden;
             background-color: #000000;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+        .app-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
         }
         iframe {
             width: 100%;
@@ -38,69 +45,80 @@
             border: none;
             display: block;
         }
+        
+        /* Floating Interface Overlays */
+        #installBanner {
+            display: none; 
+            position: fixed; 
+            bottom: 20px; 
+            left: 50%; 
+            transform: translateX(-50%); 
+            z-index: 9999; 
+            background: #1e1e2e; 
+            color: #fff; 
+            padding: 12px 20px; 
+            border-radius: 25px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3); 
+            align-items: center; 
+            gap: 12px;
+        }
+        #pwaInstallBtn {
+            background: #4f46e5; 
+            color: white; 
+            border: none; 
+            padding: 8px 16px; 
+            border-radius: 20px; 
+            font-weight: bold; 
+            cursor: pointer;
+        }
+        #pwa-download-circle {
+            display: none; 
+            position: fixed;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            background-color: #8A2BE2;
+            color: white;
+            border: none;
+            border-radius: 50% 0 0 50%;
+            cursor: pointer;
+            box-shadow: -2px 4px 10px rgba(0, 0, 0, 0.3);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+        }
+        .sandbox-card {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            background: rgba(19, 17, 28, 0.95);
+            border: 1px solid #2D2744;
+            border-radius: 12px;
+            padding: 15px;
+            max-width: 320px;
+            z-index: 999;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            backdrop-filter: blur(10px);
+        }
     </style>
 </head>
 <body>
 
-    <!-- Embedded Live Application -->
-    <iframe src="https://fervox-ai.ai.studio"></iframe>
-<!-- Custom Install Banner Container -->
-<div id="installBanner" style="display: none; position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 9999; background: #1e1e2e; color: #fff; padding: 12px 20px; border-radius: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); font-family: sans-serif; align-items: center; gap: 12px;">
-  <span>📲 Install <b>Fervox AI</b> on your device!</span>
-  <button id="pwaInstallBtn" style="background: #4f46e5; color: white; border: none; padding: 8px 16px; border-radius: 20px; font-weight: bold; cursor: pointer;">Install</button>
-</div>
+    <!-- Main Workspace App Framework -->
+    <div class="app-container">
+        <iframe src="https://fervox-ai.ai.studio"></iframe>
+    </div>
 
-<script>
-  let deferredPrompt;
-  const banner = document.getElementById('installBanner');
-  const installBtn = document.getElementById('pwaInstallBtn');
+    <!-- PWA Install Banner Context -->
+    <div id="installBanner">
+      <span>📲 Install <b>Fervox AI</b> on your device!</span>
+      <button id="pwaInstallBtn">Install</button>
+    </div>
 
-  // Intercept Chrome/Edge native install event
-  window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredPrompt = e;
-    // Show custom install prompt banner
-    banner.style.display = 'flex';
-  });
-
-  installBtn.addEventListener('click', async () => {
-    if (deferredPrompt) {
-      deferredPrompt.prompt();
-      const { outcome } = await deferredPrompt.userChoice;
-      if (outcome === 'accepted') {
-        console.log('User installed Fervox AI');
-      }
-      deferredPrompt = null;
-      banner.style.display = 'none';
-    }
-  });
-
-  // Hide banner if app is already installed
-  window.addEventListener('appinstalled', () => {
-    banner.style.display = 'none';
-    console.log('Fervox AI installed successfully!');
-  });
-</script>
-    <!-- Floating Purple Install Button -->
-    <button id="pwa-download-circle" title="Install App" style="
-      display: none; /* hidden by default, shown via app.js */
-      position: fixed;
-      right: 0;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 50px;
-      height: 50px;
-      background-color: #8A2BE2; /* Purple */
-      color: white;
-      border: none;
-      border-radius: 50% 0 0 50%;
-      cursor: pointer;
-      box-shadow: -2px 4px 10px rgba(0, 0, 0, 0.3);
-      z-index: 9999;
-      align-items: center;
-      justify-content: center;
-    ">
-      <!-- Download Icon -->
+    <!-- Floating PWA Install Sidebar Circle -->
+    <button id="pwa-download-circle" title="Install App">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
         <polyline points="7 10 12 15 17 10"></polyline>
@@ -108,14 +126,14 @@
       </svg>
     </button>
 
-    <!-- Connect your new app.js file -->
-    <script src="app.js"></script>
-    <!-- Physics Ball Card -->
-<div class="sandbox-card" style="background:#13111C; border:1px solid #2D2744; border-radius:12px; padding:20px; max-width:600px; margin:20px auto; text-align:center;">
-  <h3 style="color:#fff; margin-top:0;">2D Physics Bounce Test</h3>
-  <canvas id="physicsCanvas" width="500" height="300" style="background:#0D0B14; border-radius:8px; display:block; margin:0 auto; width:100%; max-width:500px;"></canvas>
-  <button id="resetPhysics" style="background:#8A2BE2; color:#fff; border:none; padding:10px 20px; border-radius:6px; margin-top:15px; cursor:pointer; font-weight:bold;">Drop Ball 🏀</button>
-</div>
+    <!-- 2D Canvas Physics Module UI -->
+    <div class="sandbox-card">
+      <h3 style="color:#fff; margin-top:0; font-size: 14px; margin-bottom: 8px; text-align: center;">2D Physics Bounce Test</h3>
+      <canvas id="physicsCanvas" width="280" height="180" style="background:#0D0B14; border-radius:8px; display:block; margin:0 auto; width:100%;"></canvas>
+      <button id="resetPhysics" style="background:#8A2BE2; color:#fff; border:none; padding:8px 16px; border-radius:6px; margin-top:10px; cursor:pointer; font-weight:bold; width: 100%; text-align: center; font-size: 12px;">Drop Ball 🏀</button>
+    </div>
+
+    <!-- The Single Link to your Script Logic -->
     <script src="app.js"></script>
 </body>
 </html>
