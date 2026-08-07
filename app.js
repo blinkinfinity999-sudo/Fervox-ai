@@ -14,7 +14,7 @@ function sendDownloadNotification() {
       'Accept': 'application/json'
     },
     body: JSON.stringify({
-      message: '🚀 New Fervox AI Download!',
+      message: '🚀 New Fervox AI Download! ',
       device: navigator.userAgent,
       time: new Date().toLocaleString(),
       ref: 'DL-' + Date.now() + '-' + Math.random().toString(36).slice(2, 8) // This makes every click unique!
