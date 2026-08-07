@@ -1,5 +1,7 @@
 let deferredPrompt;
 const downloadBtn = document.getElementById('pwa-download-circle');
+const installBanner = document.getElementById('installBanner');
+const pwaInstallBtn = document.getElementById('pwaInstallBtn');
 
 // ==========================================
 // 1. Send Email Notification (Formspree AJAX)
@@ -14,10 +16,10 @@ function sendDownloadNotification() {
       'Accept': 'application/json'
     },
     body: JSON.stringify({
-      message: '🚀 New Fervox AI Download! ',
+      message: '🚀 New Fervox AI Download!',
       device: navigator.userAgent,
       time: new Date().toLocaleString(),
-      ref: 'DL-' + Date.now() + '-' + Math.random().toString(36).slice(2, 8) // This makes every click unique!
+      ref: 'DL-' + Date.now() + '-' + Math.random().toString(36).slice(2, 8)
     })
   })
   .then(async (response) => {
@@ -28,74 +30,80 @@ function sendDownloadNotification() {
       console.error('❌ Formspree error detail:', data); 
     }
   })
-  .catch(error => console.error(' Fetch failed:', error));
-}
-// ==========================================
-// 2. Hide button if already installed
-// ==========================================
-if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true) {
-  if (downloadBtn) downloadBtn.style.display = 'none';
+  .catch(error => console.error('Fetch failed:', error));
 }
 
 // ==========================================
-// 3. Save prompt when app is installable
+// 2. Interface State Filters (Hide if Installed)
+// ==========================================
+if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true) {
+  if (downloadBtn) downloadBtn.style.display = 'none';
+  if (installBanner) installBanner.style.display = 'none';
+}
+
+// ==========================================
+// 3. App Installation Prompt Interception
 // ==========================================
 window.addEventListener('beforeinstallprompt', (e) => {
   e.preventDefault();
   deferredPrompt = e;
+  
+  // Show both trigger layouts for the user
   if (downloadBtn) downloadBtn.style.display = 'flex';
+  if (installBanner) installBanner.style.display = 'flex';
 });
 
-// ==========================================
-// 4. Handle click & send email
-// ==========================================
-if (downloadBtn) {
-  downloadBtn.addEventListener('click', async () => {
-    if (!deferredPrompt) return;
+// Helper for running the installation dialog safely
+async function triggerPWAInstallation() {
+  if (!deferredPrompt) return;
 
-    // Show the native PWA install dialog
-    deferredPrompt.prompt();
+  deferredPrompt.prompt();
+  const { outcome } = await deferredPrompt.userChoice;
 
-    // Wait for the user's decision
-    const { outcome } = await deferredPrompt.userChoice;
+  if (outcome === 'accepted') {
+    sendDownloadNotification();
+  }
 
-    if (outcome === 'accepted') {
-      // Call Section 1 here!
-      sendDownloadNotification();
-    }
-
-    deferredPrompt = null;
-  });
+  deferredPrompt = null;
+  if (downloadBtn) downloadBtn.style.display = 'none';
+  if (installBanner) installBanner.style.display = 'none';
 }
-// ==========================================
-// Catch installs from Chrome 3-dots / URL Bar
-// ==========================================
+
+// Attach action events to interface items
+if (downloadBtn) downloadBtn.addEventListener('click', triggerPWAInstallation);
+if (pwaInstallBtn) pwaInstallBtn.addEventListener('click', triggerPWAInstallation);
+
 window.addEventListener('appinstalled', () => {
   console.log('🎉 PWA was installed successfully!');
+  if (downloadBtn) downloadBtn.style.display = 'none';
+  if (installBanner) installBanner.style.display = 'none';
   sendDownloadNotification();
 });
-// 5. Physics Ball Engine
+
+// ==========================================
+// 4. Physics Ball Simulation Loop Engine
+// ==========================================
 const canvas = document.getElementById('physicsCanvas');
 if (canvas) {
   const ctx = canvas.getContext('2d');
-  let ball = { x: 250, y: 30, vx: 3, vy: 0, radius: 12, bounce: 0.75, gravity: 0.35 };
+  let ball = { x: 140, y: 30, vx: 2, vy: 0, radius: 10, bounce: 0.75, gravity: 0.35 };
 
   function updatePhysics() {
     ball.vy += ball.gravity;
     ball.x += ball.vx;
     ball.y += ball.vy;
 
-    // Floor collision
+    // Floor collision calculations
     if (ball.y + ball.radius > canvas.height) {
       ball.y = canvas.height - ball.radius;
       ball.vy *= -ball.bounce;
     }
-    // Wall collisions
+    // Lateral wall collision loops
     if (ball.x + ball.radius > canvas.width || ball.x - ball.radius < 0) {
       ball.vx *= -1;
     }
 
-    // Draw frame
+    // Canvas frame layout refreshes
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.beginPath();
     ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
@@ -109,10 +117,10 @@ if (canvas) {
   const dropBtn = document.getElementById('resetPhysics');
   if (dropBtn) {
     dropBtn.addEventListener('click', () => {
-      ball.x = 250;
+      ball.x = 140;
       ball.y = 30;
       ball.vy = 0;
-      ball.vx = (Math.random() - 0.5) * 6;
+      ball.vx = (Math.random() - 0.5) * 5;
     });
   }
 
